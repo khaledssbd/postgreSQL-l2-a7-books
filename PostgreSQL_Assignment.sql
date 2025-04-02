@@ -34,13 +34,13 @@ CREATE TABLE customers (
 
 
 -- inserting sample data into customers table
-INSERT INTO customers (name, email, joined_date) VALUES
-('David', 'david@email.com', '2024-02-15'),
-('Sophia', 'sophia@email.com', '2023-11-25'),
-('Liam', 'liam@email.com', '2024-01-30'),
-('Emma', 'emma@email.com', '2023-12-05'),
-('Khaled', 'kha@email.com', '2023-12-05'),
-('Noah', 'noah@email.com', '2024-02-20');
+INSERT INTO customers (name, email) VALUES
+('David', 'david@email.com'),
+('Sophia', 'sophia@email.com'),
+('Liam', 'liam@email.com'),
+('Emma', 'emma@email.com'),
+('Khaled', 'kha@email.com'),
+('Noah', 'noah@email.com');
 
 
 
@@ -55,13 +55,13 @@ CREATE TABLE orders (
 
 
 -- inserting sample data into orders table
-INSERT INTO orders (customer_id, book_id, quantity, order_date) VALUES
-(1, 3, 2, '2024-03-15'),
-(2, 1, 1, '2024-03-18'),
-(3, 5, 1, '2024-03-20'),
-(4, 2, 3, '2024-03-22'),
-(6, 4, 1, '2024-03-25'),
-(3, 5, 1, '2024-04-20');
+INSERT INTO orders (customer_id, book_id, quantity) VALUES
+(1, 3, 2),
+(2, 1, 1),
+(3, 5, 1),
+(4, 2, 3),
+(6, 4, 1),
+(3, 5, 1);
 
 
 
