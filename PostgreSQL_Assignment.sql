@@ -1,3 +1,4 @@
+-- Active: 1743617397081@@127.0.0.1@5432@bookstore_db@public
 -- creating Database
 CREATE DATABASE bookstore_db;
 
@@ -5,9 +6,9 @@ CREATE DATABASE bookstore_db;
 -- creating books table
 CREATE TABLE books (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    author VARCHAR(255) NOT NULL,
-    price DECIMAL(10,2) CHECK (price >= 0) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    author VARCHAR(50) NOT NULL,
+    price DECIMAL(4,2) CHECK (price >= 0) NOT NULL,
     stock INT NOT NULL,
     published_year INT NOT NULL
 );
@@ -28,7 +29,7 @@ INSERT INTO books (title, author, price, stock, published_year) VALUES
 CREATE TABLE customers (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
     joined_date DATE DEFAULT CURRENT_DATE
 );
 
@@ -75,10 +76,10 @@ Select title from books where stock = 0;
 Select * from books order by price desc limit 1;
 
 -- 3. Find the total number of orders placed by each customer
-Select name, count(*) as total_orders
+Select customers.name, count(*) as total_orders
        from customers
               left join orders on customers.id = orders.customer_id
-                     group by name; -- (in 'group by' customers.name and only name works samely)
+                     group by customers.name; -- (in 'group by' customers.name and only name works samely if this filed is not available in the both tables)
 
 -- 4. Calculate total revenue generated from book sales
 Select sum(books.price * orders.quantity) as total_revenue
@@ -86,10 +87,10 @@ Select sum(books.price * orders.quantity) as total_revenue
               join books on orders.book_id = books.id;
 
 -- 5. List customers who have placed more than one order
-Select name, count(orders.id) as orders_count
+Select customers.name, count(orders.id) as orders_count
        from customers
               join orders on customers.id = orders.customer_id
-                     group by name -- in group by customers.name===name
+                     group by customers.name -- (in 'group by' customers.name and only name works samely if this filed is not available in the both tables)
                             having count(orders.id) > 1; -- count(orders.id) and count(*) works same
 
 -- 6. Find the average price of books
@@ -113,8 +114,8 @@ Delete from customers where id not in (Select distinct customer_id from orders);
 
 
 
--- SELECT * from books;
+SELECT * from books;
 
--- SELECT * FROM customers;
+SELECT * FROM customers;
 
--- SELECT * FROM orders;
+SELECT * FROM orders;
