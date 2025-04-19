@@ -78,8 +78,8 @@ Select * from books order by price desc limit 1;
 -- 3. Find the total number of orders placed by each customer
 Select customers.name, count(*) as total_orders
        from customers
-              left join orders on customers.id = orders.customer_id
-                     group by customers.name; -- (in 'group by' customers.name and only name works samely if this filed is not available in the both tables)
+              right join orders on customers.id = orders.customer_id
+                     group by customers.name; -- (in 'group by' customers.name and only name works samely if this field is not available in the both tables)
 
 -- 4. Calculate total revenue generated from book sales
 Select sum(books.price * orders.quantity) as total_revenue
@@ -90,7 +90,7 @@ Select sum(books.price * orders.quantity) as total_revenue
 Select customers.name, count(orders.id) as orders_count
        from customers
               join orders on customers.id = orders.customer_id
-                     group by customers.name -- (in 'group by' customers.name and only name works samely if this filed is not available in the both tables)
+                     group by customers.name -- (in 'group by' customers.name and only name works samely if this field is not available in the both tables)
                             having count(orders.id) > 1; -- count(orders.id) and count(*) works same
 
 -- 6. Find the average price of books
